@@ -1,19 +1,28 @@
+/**
+ * BasicOptionsPricing Library Usage Example
+ * 
+ * This file demonstrates how to use the BasicOptionsPricing library
+ * to price various options and calculate Greeks.
+ */
+
 #include <iostream>
 #include <iomanip>
 #include <memory>
 #include <vector>
 #include <string>
-#include "../include/OptionsPricing/basic_options_pricing.h"
 
-using namespace BasicOptionsPricing;
+// Include all the components from the library
+// #include <OptionsPricing/BlackScholes.hpp>
+// #include <OptionsPricing/BinomialTree.hpp>
+// #include <OptionsPricing/TrinomialTree.hpp>
+// #include <OptionsPricing/ImpliedVolatility.hpp>
+// #include <OptionsPricing/OptionFactory.hpp>
+// #include <OptionsPricing/Portfolio.hpp>
 
-// Forward declarations of example functions
-void blackScholesExample();
-void binomialTreeExample();
-void trinomialTreeExample();
-void impliedVolatilityExample();
-void optionFactoryAndPortfolioExample();
-void convergenceAnalysisExample();
+#include "options_pricing.h"
+
+// Using the namespace to simplify code
+using namespace OptionsPricing;
 
 // Helper function to print option parameters
 void printOptionParams(const Option& option) {
@@ -27,124 +36,8 @@ void printOptionParams(const Option& option) {
     std::cout << "  Volatility: " << option.volatility() * 100 << "%\n";
     std::cout << "  Time to Maturity: " << option.timeToMaturity() << " years\n";
     std::cout << std::endl;
-}
+};
 
-// Example 5: Option Factory and Portfolio
-void optionFactoryAndPortfolioExample() {
-    std::cout << "=================================================\n";
-    std::cout << "Example 5: Option Factory and Portfolio Management\n";
-    std::cout << "=================================================\n";
-    
-    // Create a portfolio of options
-    OptionPortfolio portfolio;
-    
-    // Add options using the factory
-    // 1. ATM Call
-    auto atmCall = OptionFactory::createOption(
-        100.0, 100.0, 0.05, 0.2, 1.0, 
-        OptionType::Call, ExerciseType::European, "BlackScholes");
-    portfolio.addOption(std::move(atmCall), 1.0);
-    
-    // 2. ITM Put
-    auto itmPut = OptionFactory::createOption(
-        100.0, 90.0, 0.05, 0.2, 1.0, 
-        OptionType::Put, ExerciseType::European, "BlackScholes");
-    portfolio.addOption(std::move(itmPut), 2.0);
-    
-    // 3. OTM American Call
-    auto otmAmCall = OptionFactory::createOption(
-        100.0, 110.0, 0.05, 0.2, 1.0, 
-        OptionType::Call, ExerciseType::American, "BinomialTree", 100);
-    portfolio.addOption(std::move(otmAmCall), 1.0);
-    
-    // 4. ATM American Put
-    auto atmAmPut = OptionFactory::createOption(
-        100.0, 100.0, 0.05, 0.2, 1.0, 
-        OptionType::Put, ExerciseType::American, "TrinomialTree", 80);
-    portfolio.addOption(std::move(atmAmPut), 1.0);
-    
-    // Calculate portfolio value
-    double portfolioValue = portfolio.totalValue();
-    std::cout << "Portfolio Total Value: " << portfolioValue << "\n";
-    
-    // Calculate portfolio Greeks
-    double portfolioDelta = portfolio.delta();
-    double portfolioGamma = portfolio.gamma();
-    
-    std::cout << "Portfolio Delta: " << portfolioDelta << "\n";
-    std::cout << "Portfolio Gamma: " << portfolioGamma << "\n";
-    std::cout << std::endl;
-}
-
-// Example 6: Convergence Analysis
-void convergenceAnalysisExample() {
-    std::cout << "===================================\n";
-    std::cout << "Example 6: Convergence Analysis\n";
-    std::cout << "===================================\n";
-    
-    // Parameters
-    double spot = 100.0;
-    double strike = 100.0;
-    double riskFreeRate = 0.05;
-    double volatility = 0.2;
-    double timeToMaturity = 1.0;
-    
-    // Black-Scholes price (analytical solution)
-    BlackScholesOption bsOption(spot, strike, riskFreeRate, volatility, 
-                              timeToMaturity, OptionType::Call);
-    double bsPrice = bsOption.price();
-    
-    std::cout << "Black-Scholes Price (Analytical): " << bsPrice << "\n\n";
-    
-    // Convergence analysis for binomial tree
-    std::cout << "Binomial Tree Convergence Analysis:\n";
-    std::cout << "Steps\tPrice\t\tError\t\tRelative Error\n";
-    
-    for (unsigned int steps = 10; steps <= 1000; steps *= 2) {
-        BinomialTreeOption binOption(spot, strike, riskFreeRate, volatility, 
-                                   timeToMaturity, OptionType::Call, 
-                                   ExerciseType::European, steps);
-        double binPrice = binOption.price();
-        double error = std::abs(binPrice - bsPrice);
-        double relError = error / bsPrice * 100.0;
-        
-        std::cout << steps << "\t" << binPrice << "\t" << error << "\t" << relError << "%\n";
-    }
-    std::cout << std::endl;
-    
-    // Convergence analysis for trinomial tree
-    std::cout << "Trinomial Tree Convergence Analysis:\n";
-    std::cout << "Steps\tPrice\t\tError\t\tRelative Error\n";
-    
-    for (unsigned int steps = 10; steps <= 500; steps *= 2) {
-        TrinomialTreeOption triOption(spot, strike, riskFreeRate, volatility, 
-                                    timeToMaturity, OptionType::Call, 
-                                    ExerciseType::European, steps);
-        double triPrice = triOption.price();
-        double error = std::abs(triPrice - bsPrice);
-        double relError = error / bsPrice * 100.0;
-        
-        std::cout << steps << "\t" << triPrice << "\t" << error << "\t" << relError << "%\n";
-    }
-    std::cout << std::endl;
-}
-
-int main() {
-    try {
-        // Run all examples
-        blackScholesExample();
-        binomialTreeExample();
-        trinomialTreeExample();
-        impliedVolatilityExample();
-        optionFactoryAndPortfolioExample();
-        convergenceAnalysisExample();
-        
-        return 0;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
-}
 
 // Example 1: Black-Scholes pricing for European options
 void blackScholesExample() {
@@ -390,10 +283,10 @@ void impliedVolatilityExample() {
     std::cout << std::endl;
     
     // Calculate implied volatility
-    double impliedCallVol = calculateImpliedVolatility(
+    double impliedCallVol = ImpliedVolatilityCalculator::calculateImpliedVolatility(
         callPrice, spot, strike, riskFreeRate, timeToMaturity, OptionType::Call);
     
-    double impliedPutVol = calculateImpliedVolatility(
+    double impliedPutVol = ImpliedVolatilityCalculator::calculateImpliedVolatility(
         putPrice, spot, strike, riskFreeRate, timeToMaturity, OptionType::Put);
     
     std::cout << "Implied Volatility Calculation:\n";
@@ -406,10 +299,10 @@ void impliedVolatilityExample() {
     double marketCallPrice = callPrice * 1.1;  // 10% higher price
     double marketPutPrice = putPrice * 0.9;   // 10% lower price
     
-    double marketCallVol = calculateImpliedVolatility(
+    double marketCallVol = ImpliedVolatilityCalculator::calculateImpliedVolatility(
         marketCallPrice, spot, strike, riskFreeRate, timeToMaturity, OptionType::Call);
     
-    double marketPutVol = calculateImpliedVolatility(
+    double marketPutVol = ImpliedVolatilityCalculator::calculateImpliedVolatility(
         marketPutPrice, spot, strike, riskFreeRate, timeToMaturity, OptionType::Put);
     
     std::cout << "Market Price Scenarios:\n";
@@ -419,3 +312,122 @@ void impliedVolatilityExample() {
     std::cout << "  Implied Put Volatility: " << marketPutVol * 100 << "%\n";
     std::cout << std::endl;
 };
+
+
+// Example 5: Option Factory and Portfolio
+void optionFactoryAndPortfolioExample() {
+    std::cout << "=================================================\n";
+    std::cout << "Example 5: Option Factory and Portfolio Management\n";
+    std::cout << "=================================================\n";
+    
+    // Create a portfolio of options
+    OptionPortfolio portfolio;
+    
+    // Add options using the factory
+    // 1. ATM Call
+    auto atmCall = OptionFactory::createOption(
+        100.0, 100.0, 0.05, 0.2, 1.0, 
+        OptionType::Call, ExerciseType::European, "BlackScholes");
+    portfolio.addOption(std::move(atmCall), 1.0);
+    
+    // 2. ITM Put
+    auto itmPut = OptionFactory::createOption(
+        100.0, 90.0, 0.05, 0.2, 1.0, 
+        OptionType::Put, ExerciseType::European, "BlackScholes");
+    portfolio.addOption(std::move(itmPut), 2.0);
+    
+    // 3. OTM American Call
+    auto otmAmCall = OptionFactory::createOption(
+        100.0, 110.0, 0.05, 0.2, 1.0, 
+        OptionType::Call, ExerciseType::American, "BinomialTree", 100);
+    portfolio.addOption(std::move(otmAmCall), 1.0);
+    
+    // 4. ATM American Put
+    auto atmAmPut = OptionFactory::createOption(
+        100.0, 100.0, 0.05, 0.2, 1.0, 
+        OptionType::Put, ExerciseType::American, "TrinomialTree", 80);
+    portfolio.addOption(std::move(atmAmPut), 1.0);
+    
+    // Calculate portfolio value
+    double portfolioValue = portfolio.totalValue();
+    std::cout << "Portfolio Total Value: " << portfolioValue << "\n";
+    
+    // Calculate portfolio Greeks
+    double portfolioDelta = portfolio.delta();
+    double portfolioGamma = portfolio.gamma();
+    
+    std::cout << "Portfolio Delta: " << portfolioDelta << "\n";
+    std::cout << "Portfolio Gamma: " << portfolioGamma << "\n";
+    std::cout << std::endl;
+};
+
+// Example 6: Convergence Analysis
+void convergenceAnalysisExample() {
+    std::cout << "===================================\n";
+    std::cout << "Example 6: Convergence Analysis\n";
+    std::cout << "===================================\n";
+    
+    // Parameters
+    double spot = 100.0;
+    double strike = 100.0;
+    double riskFreeRate = 0.05;
+    double volatility = 0.2;
+    double timeToMaturity = 1.0;
+    
+    // Black-Scholes price (analytical solution)
+    BlackScholesOption bsOption(spot, strike, riskFreeRate, volatility, 
+                              timeToMaturity, OptionType::Call);
+    double bsPrice = bsOption.price();
+    
+    std::cout << "Black-Scholes Price (Analytical): " << bsPrice << "\n\n";
+    
+    // Convergence analysis for binomial tree
+    std::cout << "Binomial Tree Convergence Analysis:\n";
+    std::cout << "Steps\tPrice\t\tError\t\tRelative Error\n";
+    
+    for (unsigned int steps = 10; steps <= 1000; steps *= 2) {
+        BinomialTreeOption binOption(spot, strike, riskFreeRate, volatility, 
+                                   timeToMaturity, OptionType::Call, 
+                                   ExerciseType::European, steps);
+        double binPrice = binOption.price();
+        double error = std::abs(binPrice - bsPrice);
+        double relError = error / bsPrice * 100.0;
+        
+        std::cout << steps << "\t" << binPrice << "\t" << error << "\t" << relError << "%\n";
+    }
+    std::cout << std::endl;
+    
+    // Convergence analysis for trinomial tree
+    std::cout << "Trinomial Tree Convergence Analysis:\n";
+    std::cout << "Steps\tPrice\t\tError\t\tRelative Error\n";
+    
+    for (unsigned int steps = 10; steps <= 500; steps *= 2) {
+        TrinomialTreeOption triOption(spot, strike, riskFreeRate, volatility, 
+                                    timeToMaturity, OptionType::Call, 
+                                    ExerciseType::European, steps);
+        double triPrice = triOption.price();
+        double error = std::abs(triPrice - bsPrice);
+        double relError = error / bsPrice * 100.0;
+        
+        std::cout << steps << "\t" << triPrice << "\t" << error << "\t" << relError << "%\n";
+    }
+    std::cout << std::endl;
+};
+
+int main() {
+    try {
+        // Run all examples
+        blackScholesExample();
+        binomialTreeExample();
+        trinomialTreeExample();
+        impliedVolatilityExample();
+        optionFactoryAndPortfolioExample();
+        convergenceAnalysisExample();
+        
+        return 0;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
+}
+

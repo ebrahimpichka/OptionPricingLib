@@ -1,0 +1,80 @@
+# Build directories
+/build/
+/out/
+/cmake-build-*/
+
+# IDE specific files
+.vscode/
+.vs/
+.idea/
+*.swp
+*.swo
+.clangd/
+.cache/
+compile_commands.json
+CMakeSettings.json
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+Makefile
+!CMakeLists.txt
+
+# Generated documentation
+/docs/html/
+/docs/latex/
+/docs/xml/
+/docs/man/
+/docs/rtf/
+
+# Dependencies (if using vcpkg with manifest mode)
+/vcpkg_installed/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Coverage reports
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage/

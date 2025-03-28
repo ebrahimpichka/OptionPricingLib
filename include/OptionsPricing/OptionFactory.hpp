@@ -1,8 +1,13 @@
+#ifndef OPTIONS_PRICING_OPTION_FACTORY_HPP
+#define OPTIONS_PRICING_OPTION_FACTORY_HPP
+
 #include "BlackScholes.hpp"
 #include "BinomialTree.hpp"
 #include "TrinomialTree.hpp"
+#include <memory>
+#include <string>
 
-namespace BasicOptionsPricing {
+namespace OptionsPricing {
 
 // Option Factory class to create different types of options
 class OptionFactory {
@@ -41,4 +46,7 @@ public:
     }
 };
 
-} // namespace BasicOptionsPricing
+
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_OPTION_FACTORY_HPP

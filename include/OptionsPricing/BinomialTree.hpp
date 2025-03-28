@@ -1,8 +1,11 @@
-
+#ifndef OPTIONS_PRICING_BINOMIAL_TREE_HPP
+#define OPTIONS_PRICING_BINOMIAL_TREE_HPP
 
 #include "Common.hpp"
+#include <vector>
 
-namespace BasicOptionsPricing {
+namespace OptionsPricing {
+
 
 class BinomialTreeOption : public Option {
 public:
@@ -140,4 +143,6 @@ private:
 };
 
 
-} // namespace BasicOptionsPricing
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_BINOMIAL_TREE_HPP

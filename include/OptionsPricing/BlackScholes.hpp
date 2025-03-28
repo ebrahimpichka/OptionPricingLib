@@ -1,6 +1,9 @@
+#ifndef OPTIONS_PRICING_BLACK_SCHOLES_HPP
+#define OPTIONS_PRICING_BLACK_SCHOLES_HPP
+
 #include "Common.hpp"
 
-namespace BasicOptionsPricing {
+namespace OptionsPricing {
 
 class BlackScholesOption : public Option {
 public:
@@ -97,4 +100,6 @@ public:
     }
 };
 
-} // namespace BasicOptionsPricing
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_BLACK_SCHOLES_HPP

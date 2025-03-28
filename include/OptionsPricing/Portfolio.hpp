@@ -1,9 +1,16 @@
-#include "Common.hpp"
-#include "OptionFactory.hpp"
+#ifndef OPTIONS_PRICING_PORTFOLIO_HPP
+#define OPTIONS_PRICING_PORTFOLIO_HPP
 
-namespace BasicOptionsPricing {
+#include "BlackScholes.hpp"
+#include "BinomialTree.hpp"
+#include "TrinomialTree.hpp"
+#include <memory>
+#include <vector>
+#include <utility>
 
-class OptionPortfolio {
+namespace OptionsPricing {
+
+class OptionPortfolio{
 public:
     void addOption(std::unique_ptr<Option> option, double quantity = 1.0) {
         options_.push_back(std::make_pair(std::move(option), quantity));
@@ -51,4 +58,6 @@ private:
     std::vector<std::pair<std::unique_ptr<Option>, double>> options_;
 };
 
-} // namespace BasicOptionsPricing
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_PORTFOLIO_HPP

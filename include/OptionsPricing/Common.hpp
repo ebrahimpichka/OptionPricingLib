@@ -1,15 +1,10 @@
-
-#ifndef BASIC_OPTIONS_PRICING_H
-#define BASIC_OPTIONS_PRICING_H
+#ifndef OPTIONS_PRICING_COMMON_HPP
+#define OPTIONS_PRICING_COMMON_HPP
 
 #include <cmath>
-#include <vector>
-#include <string>
 #include <stdexcept>
-#include <algorithm>
-#include <iostream>
 
-namespace BasicOptionsPricing {
+namespace OptionsPricing {
 
 // Constants
 const double PI = 3.14159265358979323846;
@@ -108,6 +103,6 @@ inline void printOptionDetails(const Option& option) {
     std::cout << "Time to Maturity: " << option.timeToMaturity() << std::endl;
 }
 
-} // namespace BasicOptionsPricing
+} // namespace OptionsPricing
 
-#endif // BASIC_OPTIONS_PRICING_H
+#endif // OPTIONS_PRICING_COMMON_HPP

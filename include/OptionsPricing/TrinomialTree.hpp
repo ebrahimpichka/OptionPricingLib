@@ -1,6 +1,10 @@
-#include "Common.hpp"
+#ifndef OPTIONS_PRICING_TRINOMIAL_TREE_HPP
+#define OPTIONS_PRICING_TRINOMIAL_TREE_HPP
 
-namespace BasicOptionsPricing {
+#include "Common.hpp"
+#include <vector>
+
+namespace OptionsPricing {
 
 class TrinomialTreeOption : public Option {
 public:
@@ -152,4 +156,8 @@ public:
 private:
     unsigned int steps_;
 
-} // namespace BasicOptionsPricing
+};
+
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_TRINOMIAL_TREE_HPP

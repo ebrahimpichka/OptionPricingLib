@@ -1,6 +1,10 @@
+#ifndef OPTIONS_PRICING_IMPLIED_VOLATILITY_HPP
+#define OPTIONS_PRICING_IMPLIED_VOLATILITY_HPP
+
 #include "BlackScholes.hpp"
 
-namespace BasicOptionsPricing {
+namespace OptionsPricing {
+
 
 class ImpliedVolatilityCalculator {
 public:
@@ -55,4 +59,7 @@ public:
     }
 };
 
-} // namespace BasicOptionsPricing
+
+} // namespace OptionsPricing
+
+#endif // OPTIONS_PRICING_IMPLIED_VOLATILITY_HPP

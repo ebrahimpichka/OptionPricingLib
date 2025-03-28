@@ -11,6 +11,59 @@ A modern C++ library for pricing options using various numerical methods, design
 - **Implied Volatility**: Calculate implied volatility from option prices
 - **Portfolio Management**: Tools for managing options portfolios
 
+## Future Enhancements - TODO
+
+1. **Additional Option Types**
+   - Digital/Binary options
+   - Barrier options (knock-in, knock-out)
+   - Asian options (arithmetic and geometric averages)
+   - Lookback options
+
+2. **Improved Numerical Methods**
+   - Finite difference methods for PDE solutions
+   - Monte Carlo simulations for path-dependent options
+   - Control variate techniques for variance reduction
+   - Antithetic variates for Monte Carlo
+
+3. **Volatility Models**
+   - Term structure of volatility
+   - SABR model implementation
+   - Local volatility models
+   - Heston stochastic volatility model
+
+4. **Market Data Integration**
+   - Yield curve bootstrapping
+   - Volatility surface calibration
+   - Historical data analysis tools
+
+5. **Risk Management**
+   - VaR (Value at Risk) calculations
+   - Historical and Monte Carlo VaR
+   - Portfolio stress testing
+
+6. **Advanced Models and Methods**
+   - Jump-diffusion models (Merton model)
+   - Rough volatility models
+
+7. **Exotic Options**
+   - Bermudan options
+   - Compound options
+   - Chooser options
+   - Basket options on multiple underlyings
+   - Quanto options with foreign exchange features
+
+8. **Calibration Techniques**
+   - Advanced optimization methods for model calibration
+   - Global optimization techniques (genetic algorithms, simulated annealing)
+   - Multi-curve calibration framework
+
+9. **Regulatory and Compliance Features**
+   - FRTB (Fundamental Review of the Trading Book) calculations
+   - XVA suite (CVA, DVA, FVA, MVA)
+   - Back-testing framework for model validation
+
+
+
 ## Requirements
 
 - C++17 compatible compiler
@@ -20,11 +73,11 @@ A modern C++ library for pricing options using various numerical methods, design
 
 This is a header-only library, so no installation is required. Simply include the header file in your project:
 
-```
-
-### Managing a Portfolio of Options
 
 ```cpp
+
+// Managing a Portfolio of Options
+
 #include "basic_options_pricing.h"
 #include <iostream>
 

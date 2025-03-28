@@ -1,4 +1,4 @@
-# BasicOptionsPricing Library
+# ptionsPricing Library
 
 A modern C++ library for pricing options using various numerical methods, designed for quantitative finance applications.
 

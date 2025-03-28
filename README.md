@@ -301,7 +301,7 @@ g++ -std=c++17 -o option_pricing_tests tests.cpp
 - Wilmott, P. (2007). Paul Wilmott Introduces Quantitative Finance. Wiley.
 - QuantLib: The Quantitative Finance Library (https://www.quantlib.org/)
 
-## License
+<!-- ## License
 
 This library is provided under the MIT License.
 
@@ -440,4 +440,4 @@ int main() {
     std::cout << "Implied Volatility: " << impliedVol * 100 << "%" << std::endl;
     
     return 0;
-}
+} -->
